@@ -13,7 +13,7 @@ export default function Logo({
     <Link
       href={"/"}
       className={cn(
-        "text-2xl font-extrabold flex items-center gap-2",
+        "text-2xl font-extrabold flex items-center gap-2 cursor-pointer",
         fontSize
       )}
     >
