@@ -1,10 +1,10 @@
 import getWorkFLowsForUser from "@/actions/workflows/getWorkFLowsForUser";
-import { Skeleton } from "@/components/ui/skeleton";
-import { waitFor } from "@/lib/helper/waitFor";
-import { Suspense } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Skeleton } from "@/components/ui/skeleton";
 import { AlertCircle, InboxIcon } from "lucide-react";
+import { Suspense } from "react";
 import CreateWorkflowDialog from "./_components/CreateWorkflowDialog";
+import WorkflowCard from "./_components/WorkflowCard";
 export default function page() {
   return (
     <div className="flex-1 flex flex-col h-full">
@@ -65,5 +65,11 @@ async function UserWorkflows() {
       </div>
     );
   }
-  return <div></div>;
+  return (
+    <div className="grid grid-cols-1 gap-4">
+      {workflows.map((workflow) => (
+        <WorkflowCard key={workflow.id} workflow={workflow} />
+      ))}
+    </div>
+  );
 }
