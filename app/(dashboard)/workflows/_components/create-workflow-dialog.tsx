@@ -1,16 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Layers2Icon, Loader2Icon } from "lucide-react";
 import CustomDialogHeader from "@/components/custom-dialog-header";
-import { Controller, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  CreateWorkflowSchema,
-  createWorkflowSchema,
-} from "@/validators/workflow";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Field,
   FieldDescription,
@@ -20,13 +12,23 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { useCreateWorkflow } from "@/hooks/workflow/use-create-workflow";
+import {
+  CreateWorkflowSchema,
+  createWorkflowSchema,
+} from "@/validators/workflow";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Layers2Icon, Loader2Icon } from "lucide-react";
+import { useCallback, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 interface props {
   triggerText?: string;
 }
 
 export default function CreateWorkflowDialog({ triggerText }: props) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(createWorkflowSchema),
@@ -36,9 +38,24 @@ export default function CreateWorkflowDialog({ triggerText }: props) {
     },
   });
 
-  const onSubmit = (data: CreateWorkflowSchema) => {
-    console.log(data);
-  };
+  const { mutate: createWorkflow, isPending } = useCreateWorkflow();
+
+  const onSubmit = useCallback(
+    (data: CreateWorkflowSchema) => {
+      createWorkflow(data, {
+        onSuccess: () => {
+          setOpen(false);
+          form.reset();
+          toast.success("Workflow created successfully");
+        },
+        onError: () => {
+          toast.error("Failed to create workflow");
+        },
+      });
+    },
+    [createWorkflow, form],
+  );
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -120,9 +137,9 @@ export default function CreateWorkflowDialog({ triggerText }: props) {
             <Button
               type="submit"
               className="mt-4 w-full"
-              disabled={form.formState.isSubmitting}
+              disabled={form.formState.isSubmitting || isPending}
             >
-              {form.formState.isSubmitting ? (
+              {form.formState.isSubmitting || isPending ? (
                 <Loader2Icon className="size-4 animate-spin" />
               ) : (
                 "Proceed to create workflow"
