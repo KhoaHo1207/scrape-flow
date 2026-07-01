@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { useCreateWorkflow } from "@/hooks/workflow/use-create-workflow";
+import { useCreateWorkflow } from "@/hooks/workflow/useCreateWorkflow";
 import {
   CreateWorkflowSchema,
   createWorkflowSchema,

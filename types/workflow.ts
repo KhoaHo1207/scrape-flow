@@ -1,4 +1,4 @@
 export enum WorkFlowStatus {
   DRAFT = "DRAFT",
-  PUSHLISHED = "PUSHLISHED",
+  PUBLISHED = "PUBLISHED",
 }
