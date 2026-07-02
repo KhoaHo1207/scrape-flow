@@ -14,7 +14,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <div className="flex min-h-screen flex-1 flex-col">
         <header className="container flex h-[50px] items-center justify-between px-6 py-4">
           <BreadCrumbHeader />
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-3">
             <ModeToggle />
 
             <Show when={"signed-in"}>
@@ -23,7 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </header>
 
-        <Separator />
+        <Separator className="border-b" />
 
         <div className="overflow-auto">
           <div className="text-accent-foreground container flex-1 p-4">

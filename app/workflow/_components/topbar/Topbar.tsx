@@ -16,7 +16,7 @@ interface props {
 export default function Topbar({ title, subTitle, workflowId }: props) {
   const router = useRouter();
   return (
-    <header className="border-p-2 bg-background sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between p-2">
+    <header className="border-p-2 bg-background sticky top-0 z-10 flex h-[60px] w-full border-separate justify-between border-b p-2">
       <div className="flex flex-1 gap-1">
         <TooltipWrapper content="Back">
           <Button variant={"ghost"} size={"icon"} onClick={() => router.back()}>

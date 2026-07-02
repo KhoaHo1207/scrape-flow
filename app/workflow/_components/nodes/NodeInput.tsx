@@ -1,8 +1,10 @@
+import React from "react";
+
 import { cn } from "@/lib/utils";
 import { TaskParam } from "@/types/task";
 import { Handle, Position } from "@xyflow/react";
-import React from "react";
 import NodeParamField from "./NodeParamField";
+import { ColorForHandle } from "./common";
 
 export function NodeInputs({ children }: { children: React.ReactNode }) {
   return <div className="devide-y flex flex-col gap-2">{children}</div>;
@@ -25,6 +27,7 @@ export function NodeInput({
           position={Position.Left}
           className={cn(
             "!bg-muted-foreground !border-background !-left-2 !h-4 !w-4 !border-2",
+            ColorForHandle[input.type],
           )}
         />
       )}

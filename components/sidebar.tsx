@@ -45,7 +45,7 @@ export function DesktopSidebar() {
       (route) => route.href.length > 0 && pathname.includes(route.href),
     ) || routes[0];
   return (
-    <div className="bg-primary/5 dark:bg-secondary/30 dark:text-foreground text-muted-foreground relative hidden h-screen w-full max-w-[280px] min-w-[280px] border-separate overflow-hidden border-r-2 md:block">
+    <div className="bg-primary/5 dark:bg-secondary/30 dark:text-foreground text-muted-foreground relative hidden h-screen w-full max-w-[280px] min-w-[280px] border-separate overflow-hidden border-r md:block">
       <div className="flex border-separate items-center justify-center gap-2 border-b p-4">
         <Logo />
       </div>
