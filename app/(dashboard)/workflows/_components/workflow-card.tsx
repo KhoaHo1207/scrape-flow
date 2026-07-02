@@ -56,7 +56,7 @@ export default function WorkflowCard({ workflow }: props) {
           <div>
             <h3 className="text-muted-foreground flex items-center text-base font-bold">
               <Link
-                href={`/workflowseditor/${workflow.id}`}
+                href={`/workflow/editor/${workflow.id}`}
                 className="flex items-center hover:underline"
               >
                 {workflow.name}
@@ -72,7 +72,7 @@ export default function WorkflowCard({ workflow }: props) {
 
         <div className="flex items-center space-x-2">
           <Link
-            href={`/workflows/editor/${workflow.id}`}
+            href={`/workflow/editor/${workflow.id}`}
             className={cn(
               buttonVariants({
                 variant: "outline",
