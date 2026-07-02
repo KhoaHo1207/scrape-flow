@@ -10,9 +10,11 @@ import {
   ReactFlow,
   useEdgesState,
   useNodesState,
+  useReactFlow,
 } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import NodeComponent from "./nodes/NodeComponent";
+import { useEffect } from "react";
 const nodeTypes = {
   FlowScrapeNode: NodeComponent,
 };
@@ -22,10 +24,23 @@ const fitViewOptions = {
   padding: 1,
 };
 export default function FlowEditor({ workflow }: { workflow: Workflow }) {
-  const [nodes, setNodes, onNodeChange] = useNodesState([
-    CreateFlowNode(TaskType.LAUNCH_BROWSER),
-  ]);
+  const [nodes, setNodes, onNodeChange] = useNodesState([]);
   const [edges, setEdges, onEdgeChange] = useEdgesState([]);
+  const { setViewport } = useReactFlow();
+  useEffect(() => {
+    try {
+      const flow = JSON.parse(workflow.definition);
+      if (!flow) return;
+      setNodes(flow.nodes || []);
+      setEdges(flow.edges || []);
+
+      if (!flow.viewport) return;
+      const { x = 0, y = 0, zoom = 1 } = flow.viewport;
+      setViewport({ x, y, zoom });
+    } catch (error) {
+      console.error(error);
+    }
+  }, [workflow.definition, setNodes, setEdges, setViewport]);
   return (
     <main className="h-full w-full">
       <ReactFlow
